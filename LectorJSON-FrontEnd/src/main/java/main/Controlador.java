@@ -5,6 +5,7 @@
 package main;
 
 import backend.Employee;
+import backend.ModificarEmpleadoJSON;
 import backend.ObjetoJSON;
 import exeptions.EstructuraIncorrectaException;
 import java.io.IOException;
@@ -18,31 +19,55 @@ import vista.TablaJSON;
 
 /**
  *
- * @author Pau
+ * @author betoh
  */
-public final class Controlador {
-      private final String directorio;
+public class Controlador {
+    //
+      private static String directorio;
       ObjetoJSON lector= new ObjetoJSON();
       ArrayList<Employee> empleados= new ArrayList();
+      private static TablaJSON nView;
 
     
-    public Controlador( String directorio) {
+      public Controlador(String directorio) {
          this.directorio = directorio;
          envioArrayList();
+      }
+      
+      public Controlador(ArrayList<Employee> empleados){
+        String dir=directorio;
+        if(ModificarEmpleadoJSON.actualizarArchivo(empleados,dir)){
+            envioArrayList();
+            UpdateView();
+        }
+            
       }
 
       public void envioArrayList(){
          try {
-               empleados=lector.lecturaArchivo( directorio);
-               new TablaJSON(empleados).setVisible(true);
-         } catch (EstructuraIncorrectaException | IOException | ParseException ex) {
+               empleados=lector.lecturaArchivo(directorio);
+               nView= new TablaJSON(empleados);
+               nView.setVisible(true);
+               
+         } catch (EstructuraIncorrectaException ex) {
+               Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+               Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (ParseException ex) {
                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
          }
       }
 
+      public void UpdateView() {
+            nView.setVisible(false);
+            nView.setVisible(true);
+      }
+      
+      
+
       
 
    public static void main(String[] args) {
-      new Controlador("/Users/diegoburgos/Documents/LectorJSON-NOVVistas/src/main/java/Archivos/estructuraCorrecta.json");
+      new Controlador("/Users/diegoburgos/Documents/LectorJSON-FrontEnd/src/main/java/Archivos/estructuraCorrecta.json");
    }
 }
