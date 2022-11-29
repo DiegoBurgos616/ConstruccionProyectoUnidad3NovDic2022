@@ -1,8 +1,0 @@
-{
-    "employee": {
-        "id": "1",
-        "firstName": "Tom",
-        "lastName": "Cruise",
-        "photo": "https://jsonformatter.org/img/tom-cruise.jpg"
-    }
-}
