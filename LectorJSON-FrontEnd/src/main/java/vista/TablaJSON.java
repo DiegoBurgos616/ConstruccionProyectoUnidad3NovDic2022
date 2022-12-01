@@ -6,8 +6,10 @@ package vista;
 
 import backend.Employee;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import main.Controlador;
 
 /**
  *
@@ -15,43 +17,44 @@ import javax.swing.table.JTableHeader;
  */
 public class TablaJSON extends javax.swing.JFrame {
 
-    ArrayList<Employee> listEmpleado= new ArrayList();
-     
+    ArrayList<Employee> listEmpleado = new ArrayList();
+
     /**
      * Creates new form view
      */
-    private void propiedadesTabla(){
+    private void propiedadesTabla() {
         tablaDatos.setDefaultRenderer(Object.class, new ImagenJSON());
-        String titulos[]={"Id","FirstName","LastName","Photo"};
-        DefaultTableModel tm=new DefaultTableModel(null,titulos);
+        String titulos[] = {"Id", "FirstName", "LastName", "Photo"};
+        DefaultTableModel tm = new DefaultTableModel(null, titulos);
         tablaDatos.setRowHeight(200);
-        
+
         tablaDatos.setModel(tm);
         llenarTabla(tm);
     }
+
     public TablaJSON(ArrayList listEmpleado) {
-        this.listEmpleado=listEmpleado;
+        this.listEmpleado = listEmpleado;
         initComponents();
         propiedadesTabla();
     }
-    
+
     public TablaJSON() {
         initComponents();
         propiedadesTabla();
-        
+
     }
-    
-    public void llenarTabla(DefaultTableModel tm){
-        int numRegistros=listEmpleado.size();
-        for(int i=0;i<numRegistros;i++){
+
+    public void llenarTabla(DefaultTableModel tm) {
+        int numRegistros = listEmpleado.size();
+        for (int i = 0; i < numRegistros; i++) {
             tm.addRow(new Object[]{
                 listEmpleado.get(i).getId(),
                 listEmpleado.get(i).getFirstName(),
                 listEmpleado.get(i).getLastName(),
                 new ImagenJSON().mostrar_imagen(listEmpleado.get(i).getPhoto())
             });
-            
-        }   
+
+        }
     }
 
     public ArrayList<Employee> getListEmpleado() {
@@ -61,8 +64,6 @@ public class TablaJSON extends javax.swing.JFrame {
     public void setListEmpleado(ArrayList<Employee> listEmpleado) {
         this.listEmpleado = listEmpleado;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,6 +116,11 @@ public class TablaJSON extends javax.swing.JFrame {
         tablaDatos.setGridColor(new java.awt.Color(0, 0, 0));
         tablaDatos.setSelectionBackground(new java.awt.Color(102, 102, 102));
         tablaDatos.setSelectionForeground(new java.awt.Color(204, 204, 204));
+        tablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaDatos);
 
         jButton1.setText("Agregar");
@@ -125,6 +131,11 @@ public class TablaJSON extends javax.swing.JFrame {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Modificar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -140,14 +151,14 @@ public class TablaJSON extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(titulo)))
+                        .addComponent(titulo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -157,6 +168,9 @@ public class TablaJSON extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(titulo)
                         .addGap(40, 40, 40)
@@ -164,10 +178,7 @@ public class TablaJSON extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -188,16 +199,55 @@ public class TablaJSON extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
+        if (tablaDatos.getSelectedRow() > -1) {
+            try {
+                new ActualizarJSONVista(listEmpleado).setVisible(true);
+                DefaultTableModel tm = (DefaultTableModel) tablaDatos.getModel();
+                String ID = String.valueOf(tm.getValueAt(tablaDatos.getSelectedRow(), 0));
+                ActualizarJSONVista.jTextFieldID.setText(ID);
+            } catch (Exception e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para modificar", "Sistema", JOptionPane.WARNING_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosMouseClicked
+
+    }//GEN-LAST:event_tablaDatosMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (tablaDatos.getSelectedRow() > -1) {
+            try {
+                DefaultTableModel tm = (DefaultTableModel) tablaDatos.getModel();
+                String ID = String.valueOf(tm.getValueAt(tablaDatos.getSelectedRow(), 0));
+                int size = listEmpleado.size();
+                Controlador controlador = new Controlador();
+
+                for (int i = 0; i < size; i++) {
+                    if (listEmpleado.get(i).getId().equals(ID)) {
+                        controlador.deleteRegistroJSON(listEmpleado.get(i));  
+                        JOptionPane.showMessageDialog(this, "Empleado con id # "+(tablaDatos.getSelectedRow()+1)+" eliminado", "Sistema", JOptionPane.WARNING_MESSAGE);
+
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para eliminar", "Sistema", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,7 +276,7 @@ public class TablaJSON extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -240,7 +290,7 @@ public class TablaJSON extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    public javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaDatos;

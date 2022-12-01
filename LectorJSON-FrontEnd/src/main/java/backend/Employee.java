@@ -1,36 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package backend;
 
-/**
- *
- * @author diegoburgos
- */
 public class Employee {
-    
-        private String id;
+
+    private String id;
     private String firstName;
     private String lastName;
     private String photo;
-    
-       public Employee(String id, String firstName, String lastName, String photo) {
+
+    public Employee(String id, String firstName, String lastName, String photo) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.photo = photo;
-    }    
-       
-         public Employee() {
+    }
+
+    public Employee() {
         this.id = "default";
         this.firstName = "firstName";
         this.lastName = "lastName";
         this.photo = "photo";
     }
-    
-         
-          public String getId() {
+
+    public String getId() {
         return id;
     }
 
@@ -66,4 +57,24 @@ public class Employee {
     public String toString() {
         return this.id + ";" + this.firstName + ";" + this.lastName + ";" + this.photo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Employee)) {
+            return false;
+        }
+
+        Employee other = (Employee) o;
+
+        if (other.getId().equals(this.getId())) {
+            return true;
+        }
+        return false;
+    }
+
 }
