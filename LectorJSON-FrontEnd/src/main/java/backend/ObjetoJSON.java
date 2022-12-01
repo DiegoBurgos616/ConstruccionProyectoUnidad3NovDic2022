@@ -11,8 +11,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
-
 public class ObjetoJSON {
 
     public ArrayList<Employee> lecturaArchivo(String direccionArchivoJSON)
@@ -55,8 +53,6 @@ public class ObjetoJSON {
         String firstName = (String) jsonInfo.get("firstName");
         String lastName = (String) jsonInfo.get("lastName");
         String photo = (String) jsonInfo.get("photo");
-
-    
 
         return new Employee(id, firstName, lastName, photo);
     }

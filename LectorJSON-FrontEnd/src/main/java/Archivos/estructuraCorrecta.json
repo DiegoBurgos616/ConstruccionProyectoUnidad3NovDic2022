@@ -3,21 +3,21 @@
     "employee" : {
       "firstName" : "Diego",
       "lastName" : "Burgos",
-      "photo" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2whjzwoBz71waeE07wh1L_sfjpdm6IIf7g&usqp=CAU",
+      "photo" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOUiRV-4YzxkMAXdz1w0dq7Y7ZBirka16zow&usqp=CAU",
       "id" : "1"
     }
   }, {
     "employee" : {
       "firstName" : "Paola",
       "lastName" : "Novelo",
-      "photo" : "https://img.freepik.com/vector-premium/mujer-avatar-mujer-negocios_38295-63.jpg",
+      "photo" : "    https://img.freepik.com/vector-premium/mujer-avatar-mujer-negocios_38295-63.jpg",
       "id" : "2"
     }
   }, {
     "employee" : {
-      "firstName" : "dsa",
-      "lastName" : "asdasd",
-      "photo" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOUiRV-4YzxkMAXdz1w0dq7Y7ZBirka16zow&usqp=CAU",
+      "firstName" : "a",
+      "lastName" : "d",
+      "photo" : "    https://img.freepik.com/vector-premium/mujer-avatar-mujer-negocios_38295-63.jpg",
       "id" : "3"
     }
   } ]

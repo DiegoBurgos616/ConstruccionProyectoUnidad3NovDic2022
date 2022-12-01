@@ -11,26 +11,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import main.Controlador;
 
-
-
 public class ActualizarJSONVista extends javax.swing.JFrame {
 
-    ArrayList<Employee> listEmpleado= new ArrayList();
+    ArrayList<Employee> listEmpleado = new ArrayList();
     private String ID;
-    /**
-     * Creates new form UpdateView
-     * @param listEmpleado
-     */
+
+   
     public ActualizarJSONVista(ArrayList<Employee> listEmpleado) {
-        this.listEmpleado=listEmpleado;
+        this.listEmpleado = listEmpleado;
         initComponents();
-    }
-    
-    public ActualizarJSONVista(){
-        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
     }
 
-    
+    public ActualizarJSONVista() {
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +39,6 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldFirstName = new javax.swing.JTextField();
@@ -57,12 +53,12 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel1.setText("Actualizar ");
 
-        jLabel2.setText("ID");
-
+        jTextFieldID.setEditable(false);
         jTextFieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIDActionPerformed(evt);
@@ -128,15 +124,10 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
                                     .addComponent(jTextFieldLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                                     .addComponent(jTextFieldPhoto)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jLabel2)))
+                                .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldFirstName)))))
+                                .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(333, 333, 333)
                         .addComponent(jLabel1))
@@ -153,10 +144,8 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(36, 36, 36)
+                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,31 +179,23 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        if (isAnyEmpty(getjTextFieldID(),getjTextFieldFirstName(),getjTextFieldLastName(),getjTextFieldPhoto())) {
+
+        if (isAnyEmpty(getjTextFieldID(), getjTextFieldFirstName(), getjTextFieldLastName(), getjTextFieldPhoto())) {
             JOptionPane.showMessageDialog(this, "Faltan datos.");
-        }else{
-             
-            try {
-                ID=jTextFieldID.getText();  
-                String firstName=jTextFieldFirstName.getText();
-                String LastName=jTextFieldLastName.getText();
-                String Photo=jTextFieldPhoto.getText();
-                
-                Employee empleado= new Employee(ID,firstName,LastName,Photo);
-                listEmpleado.set(Integer.parseInt(ID)-1, empleado);
-                new Controlador(listEmpleado);
-            
-                setVisible(false);
-                dispose();
-            } catch (IndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(this, "No existe ningun dato con ese ID");
-                
-            }
-            
+        } else {
+            String ID = jTextFieldID.getText();
+            String firstName = jTextFieldFirstName.getText();
+            String LastName = jTextFieldLastName.getText();
+            String Photo = jTextFieldPhoto.getText();
+
+            Employee empleado = new Employee(ID, firstName, LastName, Photo);
+            Controlador controlador = new Controlador();
+            controlador.updateJSON(empleado);
+
+            setVisible(false);
+            dispose();
         }
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -225,50 +206,49 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_jTextFieldIDActionPerformed
 
     private void jTextFieldIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIDKeyTyped
         // TODO add your handling code here:
-         int key = evt.getKeyChar();
+
+        int key = evt.getKeyChar();
 
         boolean numeros = key >= 48 && key <= 57;
 
-        if (!numeros){
+        if (!numeros) {
             evt.consume();
         }
-    
+
     }//GEN-LAST:event_jTextFieldIDKeyTyped
 
     private void jTextFieldFirstNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFirstNameKeyTyped
         // TODO add your handling code here:
-         int key = evt.getKeyChar();
+        int key = evt.getKeyChar();
 
         boolean mayusculas = key >= 65 && key <= 90;
         boolean minusculas = key >= 97 && key <= 122;
         boolean espacio = key == 32;
 
-         if (!(minusculas || mayusculas || espacio))
-        {
+        if (!(minusculas || mayusculas || espacio)) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldFirstNameKeyTyped
 
     private void jTextFieldLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLastNameKeyTyped
         // TODO add your handling code here:
-         int key = evt.getKeyChar();
+        int key = evt.getKeyChar();
 
         boolean mayusculas = key >= 65 && key <= 90;
         boolean minusculas = key >= 97 && key <= 122;
         boolean espacio = key == 32;
 
-         if (!(minusculas || mayusculas || espacio))
-        {
+        if (!(minusculas || mayusculas || espacio)) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldLastNameKeyTyped
 
-    
     public boolean isAnyEmpty(JTextField... textFields) {
         for (JTextField textField : textFields) {
             if (textField.getText().isEmpty()) {
@@ -278,26 +258,21 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
         return false;
     }
 
-    
     public javax.swing.JTextField getjTextFieldFirstName() {
         return jTextFieldFirstName;
     }
-
 
     public javax.swing.JTextField getjTextFieldID() {
         return jTextFieldID;
     }
 
-
     public javax.swing.JTextField getjTextFieldLastName() {
         return jTextFieldLastName;
     }
 
-
     public javax.swing.JTextField getjTextFieldPhoto() {
         return jTextFieldPhoto;
     }
-
 
     /**
      * @param args the command line arguments
@@ -341,13 +316,12 @@ public class ActualizarJSONVista extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldFirstName;
-    private javax.swing.JTextField jTextFieldID;
+    public static javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldLastName;
     private javax.swing.JTextField jTextFieldPhoto;
     // End of variables declaration//GEN-END:variables
