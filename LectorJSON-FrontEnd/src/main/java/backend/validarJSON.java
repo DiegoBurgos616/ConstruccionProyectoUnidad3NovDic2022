@@ -4,7 +4,6 @@ import exeptions.EstructuraIncorrectaException;
 import exeptions.LlaveException;
 import org.json.simple.JSONObject;
 
-
 public class validarJSON {
 
     public validarJSON() {
@@ -18,7 +17,7 @@ public class validarJSON {
     public static void tieneLlavesvalidas(JSONObject employee) throws LlaveException {
 
         if (employee.get("employee") == null) {
-                throw new LlaveException("employee");
+            throw new LlaveException("employee");
         }
 
         JSONObject employeeObject = (JSONObject) employee.get("employee");
