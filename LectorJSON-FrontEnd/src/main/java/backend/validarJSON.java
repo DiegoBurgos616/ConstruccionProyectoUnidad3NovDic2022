@@ -19,10 +19,8 @@ public class validarJSON {
         if (employee.get("employee") == null) {
             throw new LlaveException("employee");
         }
-
         JSONObject employeeObject = (JSONObject) employee.get("employee");
         String error = "";
-
         if (employeeObject.get("id") == null) {
             error = "id";
         } else if (employeeObject.get("firstName") == null) {
@@ -32,7 +30,6 @@ public class validarJSON {
         } else if (employeeObject.get("photo") == null) {
             error = "photo";
         }
-
         if (!error.equals("")) {
             throw new LlaveException(error);
         }

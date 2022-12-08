@@ -1,9 +1,11 @@
 package main;
 
-import backend.Employee;
 import backend.CambiosJSON;
+import backend.Employee;
 import backend.ObjetoJSON;
 import exeptions.EstructuraIncorrectaException;
+import exeptions.LlaveExceptionSinValor;
+import exeptions.RegistroDuplicado;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,15 +16,14 @@ import vista.TablaJSON;
 
 public class Controlador {
 
-    String dir = directorio;
-
     private static String directorio;
+    String dir = directorio;
     ObjetoJSON lector = new ObjetoJSON();
-    ArrayList<Employee> empleados = new ArrayList();
+    ArrayList<Employee> empleados = new ArrayList<>();
     private static TablaJSON nView;
 
-    public Controlador(String directorio) {
-        this.directorio = directorio;
+    public Controlador(String directorioRecibido) {
+        directorio = directorioRecibido;
         envioArrayList();
     }
 
@@ -30,7 +31,6 @@ public class Controlador {
     }
 
     public void updateJSON(Employee empleados) {
-        String dir = directorio;
         CambiosJSON modificador = new CambiosJSON(dir);
         if (modificador.modificarRegistro(empleados)) {
             closeView();
@@ -51,6 +51,20 @@ public class Controlador {
         }
     }
 
+    public void addRegistroJSON(Employee empleados) {
+        CambiosJSON modificador = new CambiosJSON(dir);
+        try {
+            if (modificador.agregarRegistro(empleados)) {
+                closeView();
+                envioArrayList();
+            } else {
+                JOptionPane.showMessageDialog(nView, "No fue posible agregar un nuevo registro");
+            }
+        } catch (RegistroDuplicado ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void envioArrayList() {
         try {
             empleados = lector.lecturaArchivo(directorio);
@@ -62,6 +76,8 @@ public class Controlador {
         } catch (IOException ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LlaveExceptionSinValor ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
